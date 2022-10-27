@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static("public"));
 
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("Listening to the server 3000");
 });
 
@@ -25,6 +25,7 @@ app.post("/", function(req, res){
     // List id : c8ebbced09
 
     var data = {
+        //syntax of this is known from mailchimp api documentation
         members : [
             {
                 email_address : email,
@@ -42,9 +43,11 @@ app.post("/", function(req, res){
     var options = {
         url : "https://us13.api.mailchimp.com/3.0/lists/c8ebbced09",
         method : "POST",
+        //HTTP Basic Authentication
         headers : {
             "Authorization" : "VISHNU 9e702b8dcf24379167896b0fa3254b7f-us13" 
         },
+        //This is the main data which is passes in request (parsed)
         body : jsonData
     };
 
